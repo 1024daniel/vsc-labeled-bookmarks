@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import * as path from 'path';
 import { Group } from "./group";
 import {
     ExtensionContext,
@@ -376,12 +377,15 @@ export class Main implements BookmarkDataProvider, BookmarkManager, ActiveGroupP
         return this.activeGroup;
     }
 
+    // render and add decorations in vscode editor like git message in right of code line   
     public updateEditorDecorations(textEditor: TextEditor | undefined) {
         if (typeof textEditor === "undefined") {
             return;
         }
 
-        let fsPath = textEditor.document.uri.fsPath;
+        let fsPath = textEditor.document.uri.fsPath;    // absolute path
+        let currentProjectPath = vscode.workspace.workspaceFolders?.map(folder => folder.uri.path)[0] ?? '';
+        fsPath = fsPath.substring(currentProjectPath.length + 1);
         let editorDecorations = this.getTempDocumentDecorationsList(fsPath);
 
         for (let [removedDecoration, b] of this.removedDecorations) {
@@ -932,12 +936,17 @@ export class Main implements BookmarkDataProvider, BookmarkManager, ActiveGroupP
                     });
             }
 
+            let currentProjectPath = vscode.workspace.workspaceFolders?.map(folder => folder.uri.path)[0] ?? '';
+            let relativeFspath = fsPath.substring(currentProjectPath.length + 1);  
+
             if (label !== "") {
                 let characterNumber = textEditor.selection.start.character;
                 let lineText = textEditor.document.lineAt(lineNumber).text.trim();
 
+                
+
                 let bookmark = new Bookmark(
-                    fsPath,
+                    relativeFspath,
                     lineNumber,
                     characterNumber,
                     label,
@@ -949,8 +958,8 @@ export class Main implements BookmarkDataProvider, BookmarkManager, ActiveGroupP
                 this.bookmarks.sort(Bookmark.sortByLocation);
             }
 
-            this.tempDocumentDecorations.delete(fsPath);
-            this.tempDocumentBookmarks.delete(fsPath);
+            this.tempDocumentDecorations.delete(relativeFspath);
+            this.tempDocumentBookmarks.delete(relativeFspath);
             this.tempGroupBookmarks.delete(this.activeGroup);
             this.updateBookmarkTimestamp();
             this.saveBookmarkData();
@@ -1619,35 +1628,35 @@ export class Main implements BookmarkDataProvider, BookmarkManager, ActiveGroupP
             let tempGroups = SerializableGroup.copyList(this.persistentStorage.getGroups());
 
             if (!actionParameters.allowOutOfFolderFiles) {
-                let skippedFilePaths: Map<string, boolean> = new Map();
-                tempBookmarks = tempBookmarks.filter((bm) => {
-                    for (let f of tempWorkspaceFolders) {
-                        if (bm.fsPath.startsWith(f)) {
-                            return true;
-                        }
-                    };
-                    skippedFilePaths.set(bm.fsPath, true);
-                    return false;
-                });
+                // let skippedFilePaths: Map<string, boolean> = new Map();
+                // tempBookmarks = tempBookmarks.filter((bm) => {
+                //     for (let f of tempWorkspaceFolders) {
+                //         if (bm.fsPath.startsWith(f)) {
+                //             return true;
+                //         }
+                //     };
+                //     skippedFilePaths.set(bm.fsPath, true);
+                //     return false;
+                // });
 
-                skippedFilePaths.forEach((_value, key) => {
-                    successResult.warnings.push("File outside of workspace folder was skipped: " + key);
-                });
+                // skippedFilePaths.forEach((_value, key) => {
+                //     successResult.warnings.push("File outside of workspace folder was skipped: " + key);
+                // });
             }
 
             if (actionParameters.transformFolderPaths) {
-                let simpleFolderName = '@FOLDER';
+                //let simpleFolderName = '@FOLDER';
                 tempWorkspaceFolders.sort((a, b) => { return b.length - a.length; });
                 tempBookmarks.forEach((bm) => {
                     tempWorkspaceFolders.forEach((f, fi) => {
                         if (bm.fsPath.startsWith(f)) {
-                            bm.fsPath = simpleFolderName + (fi + 1) + bm.fsPath.substring(f.length);
+                            bm.fsPath = bm.fsPath.substring(f.length + 1);
                             return;
                         }
                     });
                 });
 
-                tempWorkspaceFolders = tempWorkspaceFolders.map((_f, fi) => { return simpleFolderName + (fi + 1); });
+                //tempWorkspaceFolders = tempWorkspaceFolders.map((_f, fi) => { return simpleFolderName + (fi + 1); });
             }
 
             if (actionParameters.writeToTargetSelectively) {
@@ -1700,28 +1709,47 @@ export class Main implements BookmarkDataProvider, BookmarkManager, ActiveGroupP
                     bookmarkedFiles.set(normalizedPath, normalizedPath);
                 });
 
-                bookmarkedFiles.forEach((_filePathValue, filePathKey) => {
-                    for (let [mappingKey, mappingValue] of pathMapping) {
-                        if (filePathKey.startsWith(mappingKey)) {
-                            bookmarkedFiles.set(filePathKey, mappingValue + filePathKey.substring(mappingKey.length));
-                            return;
-                        }
-                    }
-                    successResult.warnings.push("file outside listed folders was skipped: " + filePathKey);
-                    bookmarkedFiles.delete(filePathKey);
-                });
+                // bookmarkedFiles.forEach((_filePathValue, filePathKey) => {
+                //     // for (let [mappingKey, mappingValue] of pathMapping) {
+                //     //     if (filePathKey.startsWith(mappingKey)) {
+                //     //         bookmarkedFiles.set(filePathKey, mappingValue + filePathKey.substring(mappingKey.length));
+                //     //         return;
+                //     //     }
+                //     // }
+                //     let currentProjectPath = vscode.workspace.workspaceFolders?.map(folder => folder.uri.path)[0] ?? ''                    
+                //     let absoultfilePath = path.join(currentProjectPath,_filePathValue)
+                //     bookmarkedFiles.delete(filePathKey);
+                //     bookmarkedFiles.set(absoultfilePath, absoultfilePath);
+                //     //successResult.warnings.push("file outside listed folders was skipped: " + filePathKey);
+                //     //bookmarkedFiles.delete(filePathKey);
+                // });
+
+                // transfor from relative path to absolute path
+                // let currentProjectPath = vscode.workspace.workspaceFolders?.map(folder => folder.uri.path)[0] ?? '';                 
+                // let bmRelativePaths = Array.from(bookmarkedFiles.keys());
+                // let bmAbsolutePaths:string[] = [];
+                // bmRelativePaths.forEach((v)=>{
+                //     bookmarkedFiles.delete(v);
+                //     let absoultfilePath = path.join(currentProjectPath,v);
+                //     bmAbsolutePaths.push(absoultfilePath);
+                // });
+                // bmAbsolutePaths.forEach((v)=>{
+                //     bookmarkedFiles.set(v,v);
+                // });
+                
+
 
                 try {
                     filteredBookmarks.forEach(bm => {
                         let bookmarkLabel = bm.label ? `"${bm.label}"` : "without label";
                         let origPath = bm.fsPath.replace(/\\/g, "/");
                         let newPath = bookmarkedFiles.get(origPath);
-                        if (typeof newPath === "undefined") {
-                            successResult.warnings.push(`skipped bookmark ${bookmarkLabel} for line ${bm.lineNumber} of ${origPath}`);
-                            return;
-                        }
+                        // if (typeof newPath === "undefined") {
+                        //     successResult.warnings.push(`skipped bookmark ${bookmarkLabel} for line ${bm.lineNumber} of ${origPath}`);
+                        //     return;
+                        // }
 
-                        bm.fsPath = this.getRealPath(newPath);
+                        // bm.fsPath = this.getRealPath(newPath??'');
                         mappedBookmarks.push(bm);
                         successResult.infos.push(`imported bookmark ${bookmarkLabel} for line ${bm.lineNumber} of ${origPath}`);
                     });
@@ -2214,7 +2242,9 @@ export class Main implements BookmarkDataProvider, BookmarkManager, ActiveGroupP
     }
 
     public jumpToBookmark(bookmark: Bookmark, preview: boolean = false) {
-        vscode.window.showTextDocument(vscode.Uri.file(bookmark.fsPath), { preview: preview, preserveFocus: preview }).then(
+        let currentProjectPath = vscode.workspace.workspaceFolders?.map(folder => folder.uri.path)[0] ?? '';
+        let absPath = path.join(currentProjectPath,bookmark.fsPath);
+        vscode.window.showTextDocument(vscode.Uri.file(absPath), { preview: preview, preserveFocus: preview }).then(
             textEditor => {
                 try {
 

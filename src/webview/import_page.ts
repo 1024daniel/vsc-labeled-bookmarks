@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import * as path from 'path';
 import { WebViewContent } from "./webview_content";
 import { HeaderContent } from "./header_content";
 import { WebviewContentHelper } from "../interface/webview_content_helper";
@@ -168,7 +169,9 @@ export class ImportPage extends WebViewContent {
                     }
 
                     try {
-                        let stat = await vscode.workspace.fs.stat(vscode.Uri.file(mappedFile));
+                        let currentProjectPath = vscode.workspace.workspaceFolders?.map(folder => folder.uri.path)[0] ?? '';
+                        let absoultfilePath = path.join(currentProjectPath,mappedFile);
+                        let stat = await vscode.workspace.fs.stat(vscode.Uri.file(absoultfilePath));
                         this.fileStats.set(mappedFile, stat);
                     } catch (e) {
                         ;

@@ -113,7 +113,7 @@ export class BookmarkStorageInFile implements BookmarkDataStorage {
             "groups": this.groups,
             "bookmarks": this.bookmarks,
             "workspaceFolders": this.workspaceFolders,
-        });
+        },null,'\t');
 
         let bytes = Uint8Array.from(json.split("").map(c => { return c.charCodeAt(0); }));
         await workspace.fs.writeFile(this.uri, bytes);

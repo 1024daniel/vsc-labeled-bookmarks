@@ -1,0 +1,221 @@
+{
+	"dataFormatVersion": 1,
+	"timestamp": 1718732569324,
+	"groups": [
+		{
+			"name": "default",
+			"color": "00ddddff",
+			"shape": "bookmark",
+			"iconText": "default"
+		},
+		{
+			"name": "setting",
+			"color": "00ddddff",
+			"shape": "unicode",
+			"iconText": "ý"
+		}
+	],
+	"bookmarks": [
+		{
+			"fsPath": "package.json",
+			"lineNumber": 233,
+			"characterNumber": 22,
+			"label": "configuration definitions",
+			"lineText": "\"configuration\": {",
+			"isLineNumberChanged": false,
+			"groupName": "setting"
+		},
+		{
+			"fsPath": "resources/webview.js",
+			"lineNumber": 6,
+			"characterNumber": 45,
+			"label": "receive extension message and uodate webview elements",
+			"lineText": "window.addEventListener('message', event => {",
+			"isLineNumberChanged": false,
+			"groupName": "default"
+		},
+		{
+			"fsPath": "resources/webview.js",
+			"lineNumber": 45,
+			"characterNumber": 72,
+			"label": "select file handler, pass messages from webview to extension",
+			"lineText": "document.querySelectorAll(\".file-selector\").forEach(function (element) {",
+			"isLineNumberChanged": false,
+			"groupName": "default"
+		},
+		{
+			"fsPath": "src/decoration_factory.ts",
+			"lineNumber": 149,
+			"characterNumber": 128,
+			"label": "create svg decoration",
+			"lineText": "async create(shape: string, color: string, iconText: string, lineLabel?: string): Promise<[TextEditorDecorationType, Uri]> {",
+			"isLineNumberChanged": false,
+			"groupName": "default"
+		},
+		{
+			"fsPath": "src/decoration_factory.ts",
+			"lineNumber": 198,
+			"characterNumber": 85,
+			"label": "render svg decoration in editor",
+			"lineText": "let result = vscode.window.createTextEditorDecorationType(decorationOptions);",
+			"isLineNumberChanged": false,
+			"groupName": "default"
+		},
+		{
+			"fsPath": "src/main.ts",
+			"lineNumber": 72,
+			"characterNumber": 18,
+			"label": "storage action options",
+			"lineText": "}> = new Map([",
+			"isLineNumberChanged": false,
+			"groupName": "default"
+		},
+		{
+			"fsPath": "src/main.ts",
+			"lineNumber": 287,
+			"characterNumber": 47,
+			"label": "init and save",
+			"lineText": "await this.persistentStorage.persist();",
+			"isLineNumberChanged": false,
+			"groupName": "default"
+		},
+		{
+			"fsPath": "src/main.ts",
+			"lineNumber": 380,
+			"characterNumber": 72,
+			"label": "update decorations",
+			"lineText": "public updateEditorDecorations(textEditor: TextEditor | undefined) {",
+			"isLineNumberChanged": false,
+			"groupName": "default"
+		},
+		{
+			"fsPath": "src/main.ts",
+			"lineNumber": 833,
+			"characterNumber": 43,
+			"label": "test",
+			"lineText": "this.updateBookmarkTimestamp();",
+			"isLineNumberChanged": false,
+			"groupName": "default"
+		},
+		{
+			"fsPath": "src/main.ts",
+			"lineNumber": 857,
+			"characterNumber": 70,
+			"label": "toggle bookmark",
+			"lineText": "public editorActionToggleLabeledBookmark(textEditor: TextEditor) {",
+			"isLineNumberChanged": false,
+			"groupName": "default"
+		},
+		{
+			"fsPath": "src/main.ts",
+			"lineNumber": 1574,
+			"characterNumber": 38,
+			"label": "all save storage entry",
+			"lineText": "public async executeStorageAction(",
+			"isLineNumberChanged": false,
+			"groupName": "default"
+		},
+		{
+			"fsPath": "src/main.ts",
+			"lineNumber": 1871,
+			"characterNumber": 53,
+			"label": "read default shape",
+			"lineText": "if (config.has(this.configKeyDefaultShape)) {",
+			"isLineNumberChanged": false,
+			"groupName": "setting"
+		},
+		{
+			"fsPath": "src/main.ts",
+			"lineNumber": 2061,
+			"characterNumber": 32,
+			"label": "load bookmarks in side bar",
+			"lineText": "private loadBookmarkData() {",
+			"isLineNumberChanged": false,
+			"groupName": "default"
+		},
+		{
+			"fsPath": "src/main.ts",
+			"lineNumber": 2243,
+			"characterNumber": 73,
+			"label": "jumper to specific bookmark",
+			"lineText": "public jumpToBookmark(bookmark: Bookmark, preview: boolean = false) {",
+			"isLineNumberChanged": false,
+			"groupName": "default"
+		},
+		{
+			"fsPath": "src/main.ts",
+			"lineNumber": 2345,
+			"characterNumber": 37,
+			"label": "set save bookmark interval",
+			"lineText": "private setStorageRateLimiter() {",
+			"isLineNumberChanged": false,
+			"groupName": "default"
+		},
+		{
+			"fsPath": "src/main.ts",
+			"lineNumber": 2357,
+			"characterNumber": 47,
+			"label": "get file:// path scheme uri",
+			"lineText": "private getRealPath(path: string): string {",
+			"isLineNumberChanged": false,
+			"groupName": "default"
+		},
+		{
+			"fsPath": "src/storage/bookmark_storage_in_file.ts",
+			"lineNumber": 29,
+			"characterNumber": 32,
+			"label": "parse bookmarks from json file",
+			"lineText": "public async readStorage() {",
+			"isLineNumberChanged": false,
+			"groupName": "default"
+		},
+		{
+			"fsPath": "src/storage/bookmark_storage_in_file.ts",
+			"lineNumber": 108,
+			"characterNumber": 43,
+			"label": "persist bookmarks to file",
+			"lineText": "public async persist(): Promise<void> {",
+			"isLineNumberChanged": false,
+			"groupName": "default"
+		},
+		{
+			"fsPath": "src/webview/bookmark_webview.ts",
+			"lineNumber": 253,
+			"characterNumber": 35,
+			"label": "select file from pop up diaglog",
+			"lineText": "if (value === \"read\") {",
+			"isLineNumberChanged": false,
+			"groupName": "default"
+		},
+		{
+			"fsPath": "src/webview/bookmark_webview.ts",
+			"lineNumber": 263,
+			"characterNumber": 68,
+			"label": "update webview element to selected file path name",
+			"lineText": "this.setFormElement(name, result[0].fsPath);",
+			"isLineNumberChanged": false,
+			"groupName": "default"
+		},
+		{
+			"fsPath": "src/webview/import_page.ts",
+			"lineNumber": 170,
+			"characterNumber": 25,
+			"label": "check if import bookmark file is existed",
+			"lineText": "try {",
+			"isLineNumberChanged": false,
+			"groupName": "default"
+		},
+		{
+			"fsPath": "src/webview/import_page.ts",
+			"lineNumber": 238,
+			"characterNumber": 89,
+			"label": "get map folder htmls",
+			"lineText": "let folderMappingControls = this.webviewContentHelper.getMappingFormControls(",
+			"isLineNumberChanged": false,
+			"groupName": "default"
+		}
+	],
+	"workspaceFolders": [
+		"/Users/daniel/code/vsc-labeled-bookmarks"
+	]
+}

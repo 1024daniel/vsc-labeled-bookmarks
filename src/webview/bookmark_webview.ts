@@ -77,8 +77,8 @@ export class BookmarkWebview implements WebviewContentHelper {
     public reveal() {
         if (typeof this.panel === "undefined") {
             this.panel = vscode.window.createWebviewPanel(
-                'labeledBookmarks',
-                'Labeled Bookmarks',
+                'new labeledBookmarks',
+                'New Labeled Bookmarks',
                 vscode.ViewColumn.Active,
                 {
                     enableScripts: true,
@@ -258,7 +258,7 @@ export class BookmarkWebview implements WebviewContentHelper {
                     canSelectMany: false,
                     defaultUri: aWorkspaceFolder,
                     filters: { "json": ["json"] },
-                    title: "Labeled Bookmarks: select file to read",
+                    title: "New Labeled Bookmarks: select file to read",
                 }).then((result) => {
                     if (typeof result !== "undefined") {
                         this.setFormElement(name, result[0].fsPath);
@@ -277,7 +277,7 @@ export class BookmarkWebview implements WebviewContentHelper {
                     defaultUri: aWorkspaceFolder,
                     filters: { "json": ["json"] },
                     saveLabel: undefined,
-                    title: "Labeled Bookmarks: select file to write to",
+                    title: "New Labeled Bookmarks: select file to write to",
                 }).then((result) => {
                     if (typeof result !== "undefined") {
                         this.setFormElement(name, result.fsPath);
@@ -297,12 +297,12 @@ export class BookmarkWebview implements WebviewContentHelper {
 
     public refreshView() {
         if (typeof this.panel === "undefined") {
-            throw new Error("Wwebview is uninitialized.");
+            throw new Error("Webview is uninitialized.");
         }
 
         this.getWebviewContents().then((contents) => {
             if (typeof this.panel === "undefined") {
-                throw new Error("Wwebview is uninitialized.");
+                throw new Error("Webview is uninitialized.");
             }
 
             this.panel.webview.html = contents;

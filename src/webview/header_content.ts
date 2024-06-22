@@ -25,7 +25,7 @@ export class HeaderContent extends WebViewContent {
         }
 
         return `${mainLink}
-            <h1>Labeled Bookmarks${subTitle}</h1>
+            <h1>New Labeled Bookmarks${subTitle}</h1>
             <hr />
             `;
     }

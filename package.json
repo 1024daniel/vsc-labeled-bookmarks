@@ -1,13 +1,13 @@
 {
-  "name": "labeled-bookmarks",
-  "displayName": "Labeled Bookmarks",
+  "name": "new-labeled-bookmarks",
+  "displayName": "New Labeled Bookmarks",
   "description": "Bookmarks, multiple groups, customizable visuals, import, export",
-  "version": "1.1.13",
-  "publisher": "koalamer",
+  "version": "1.1.15",
+  "publisher": "EvilDragonFly",
   "icon": "resources/vsc-labeled-bookmarks-logo.png",
   "repository": {
     "type": "git",
-    "url": "https://github.com/koalamer/vsc-labeled-bookmarks.git"
+    "url": "https://github.com/EvilDragonFly/vsc-labeled-bookmarks.git"
   },
   "engines": {
     "vscode": "^1.54.0"
@@ -232,7 +232,7 @@
       }
     ],
     "configuration": {
-      "title": "Labeled Bookmarks",
+      "title": "New Labeled Bookmarks",
       "properties": {
         "labeledBookmarks.colors": {
           "type": "array",
@@ -368,7 +368,7 @@
       "activitybar": [
         {
           "id": "labeled-bookmarks-tree-view",
-          "title": "Labeled Bookmarks",
+          "title": "New Labeled Bookmarks",
           "icon": "$(bookmark)"
         }
       ]

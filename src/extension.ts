@@ -17,7 +17,7 @@ export function activate(context: ExtensionContext) {
 			activatePhase2(context);
 		},
 		(reason) => {
-			vscode.window.showErrorMessage('Labeled Bookmarks failed to initialize: ' + reason);
+			vscode.window.showErrorMessage('New Labeled Bookmarks failed to initialize: ' + reason);
 		});
 }
 

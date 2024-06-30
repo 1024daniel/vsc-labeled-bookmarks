@@ -341,6 +341,11 @@
           "minimum": 0,
           "maximum": 5
         },
+        "labeledBookmarks.saveBookmarksInProject": {
+          "type": "boolean",
+          "default": false,
+          "description": "Allow bookmarks to be saved (and restored) locally in the opened Project/Folder instead of VS Code"
+        },
         "labeledBookmarks.persistenceDelay": {
           "type": "number",
           "description": "Accumulate changes for this many milliseconds before starting to persist them.",

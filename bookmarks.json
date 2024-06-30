@@ -1,7 +1,13 @@
 {
 	"dataFormatVersion": 1,
-	"timestamp": 1718732569324,
+	"timestamp": 1719762844648,
 	"groups": [
+		{
+			"name": "debug",
+			"color": "dddd00ff",
+			"shape": "bookmark",
+			"iconText": "debug"
+		},
 		{
 			"name": "default",
 			"color": "00ddddff",
@@ -62,6 +68,24 @@
 			"groupName": "default"
 		},
 		{
+			"fsPath": "src/extension.ts",
+			"lineNumber": 11,
+			"characterNumber": 53,
+			"label": "vscode active entry",
+			"lineText": "export function activate(context: ExtensionContext) {",
+			"isLineNumberChanged": false,
+			"groupName": "default"
+		},
+		{
+			"fsPath": "src/extension.ts",
+			"lineNumber": 191,
+			"characterNumber": 23,
+			"label": "sync bookmarks before vscode exits",
+			"lineText": "main.saveLocalState();",
+			"isLineNumberChanged": false,
+			"groupName": "default"
+		},
+		{
 			"fsPath": "src/main.ts",
 			"lineNumber": 72,
 			"characterNumber": 18,
@@ -72,10 +96,10 @@
 		},
 		{
 			"fsPath": "src/main.ts",
-			"lineNumber": 287,
-			"characterNumber": 47,
-			"label": "init and save",
-			"lineText": "await this.persistentStorage.persist();",
+			"lineNumber": 283,
+			"characterNumber": 65,
+			"label": "save bookmarks",
+			"lineText": "this.persistentStorage.setBookmarks(serializedBookmarks);",
 			"isLineNumberChanged": false,
 			"groupName": "default"
 		},
@@ -90,10 +114,37 @@
 		},
 		{
 			"fsPath": "src/main.ts",
-			"lineNumber": 833,
-			"characterNumber": 43,
-			"label": "test",
-			"lineText": "this.updateBookmarkTimestamp();",
+			"lineNumber": 389,
+			"characterNumber": 65,
+			"label": "windows bug here?",
+			"lineText": "fsPath = fsPath.substring(currentProjectPath.length + 1);",
+			"isLineNumberChanged": false,
+			"groupName": "debug"
+		},
+		{
+			"fsPath": "src/main.ts",
+			"lineNumber": 404,
+			"characterNumber": 68,
+			"label": "editor change handler",
+			"lineText": "public onEditorDocumentChanged(event: TextDocumentChangeEvent) {",
+			"isLineNumberChanged": false,
+			"groupName": "default"
+		},
+		{
+			"fsPath": "src/main.ts",
+			"lineNumber": 514,
+			"characterNumber": 74,
+			"label": "get bookmarks in a file",
+			"lineText": "private getTempDocumentBookmarkList(fsPath: string): Array<Bookmark> {",
+			"isLineNumberChanged": false,
+			"groupName": "default"
+		},
+		{
+			"fsPath": "src/main.ts",
+			"lineNumber": 857,
+			"characterNumber": 0,
+			"label": "toggle boo",
+			"lineText": "",
 			"isLineNumberChanged": false,
 			"groupName": "default"
 		},
@@ -108,10 +159,28 @@
 		},
 		{
 			"fsPath": "src/main.ts",
+			"lineNumber": 960,
+			"characterNumber": 62,
+			"label": "delete cached bookmarks belongs to a file for add new bookmarks",
+			"lineText": "this.tempDocumentBookmarks.delete(relativeFspath);",
+			"isLineNumberChanged": false,
+			"groupName": "default"
+		},
+		{
+			"fsPath": "src/main.ts",
 			"lineNumber": 1574,
 			"characterNumber": 38,
 			"label": "all save storage entry",
 			"lineText": "public async executeStorageAction(",
+			"isLineNumberChanged": false,
+			"groupName": "default"
+		},
+		{
+			"fsPath": "src/main.ts",
+			"lineNumber": 1652,
+			"characterNumber": 74,
+			"label": "convert bookmark abs path to relative path",
+			"lineText": "bm.fsPath = bm.fsPath.substring(f.length + 1);",
 			"isLineNumberChanged": false,
 			"groupName": "default"
 		},
@@ -130,6 +199,15 @@
 			"characterNumber": 32,
 			"label": "load bookmarks in side bar",
 			"lineText": "private loadBookmarkData() {",
+			"isLineNumberChanged": false,
+			"groupName": "default"
+		},
+		{
+			"fsPath": "src/main.ts",
+			"lineNumber": 2112,
+			"characterNumber": 57,
+			"label": "add new bookmarks function",
+			"lineText": "private addNewDecoratedBookmark(bookmark: Bookmark) {",
 			"isLineNumberChanged": false,
 			"groupName": "default"
 		},
@@ -157,6 +235,15 @@
 			"characterNumber": 47,
 			"label": "get file:// path scheme uri",
 			"lineText": "private getRealPath(path: string): string {",
+			"isLineNumberChanged": false,
+			"groupName": "default"
+		},
+		{
+			"fsPath": "src/main.ts",
+			"lineNumber": 2362,
+			"characterNumber": 56,
+			"label": "rate function fire save bookmarks functions",
+			"lineText": "this.saveBookmarkDataImmediately.bind(this),",
 			"isLineNumberChanged": false,
 			"groupName": "default"
 		},

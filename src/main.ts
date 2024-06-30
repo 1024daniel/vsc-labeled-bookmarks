@@ -35,6 +35,7 @@ import { FolderMatchStats as FolderMatchStats } from './storage/folder_match_sta
 import { BookmarkWebview } from './webview/bookmark_webview';
 import { StorageManager } from './interface/storage_manager';
 import { StorageActionResult } from './storage/storage_action_result';
+import { getAbsolutePath, getRelativePath } from "./tools/fs";
 
 export class Main implements BookmarkDataProvider, BookmarkManager, ActiveGroupProvider, StorageManager {
     public ctx: ExtensionContext;
@@ -55,6 +56,7 @@ export class Main implements BookmarkDataProvider, BookmarkManager, ActiveGroupP
     public readonly configKeyHomingMarginTop = "homingMarginTop";
     public readonly configKeyHomingMarginBottom = "homingMarginBottom";
     public readonly configKeyHomingSteps = "homingSteps";
+    public readonly configKeySaveBookmarksInProject = "saveBookmarksInProject";
     public readonly configKeyPersistenceDelay = "persistenceDelay";
     public readonly configKeyPersistenceIntervalForWorkspaceState = "persistenceIntervalForWorkspaceState";
     public readonly configKeyPersistenceIntervalForFiles = "persistenceIntervalForFiles";
@@ -295,7 +297,7 @@ export class Main implements BookmarkDataProvider, BookmarkManager, ActiveGroupP
         this.ctx.workspaceState.update(this.savedHideInactiveGroupsKey, this.hideInactiveGroups);
         this.ctx.workspaceState.update(this.savedHideAllKey, this.hideAll);
         this.ctx.workspaceState.update(this.savedPersistentStorageTypeKey, this.persistentStorageType);
-        this.ctx.workspaceState.update(this.savedPersistToFilePathKey, this.persistToFilePath);
+        // this.ctx.workspaceState.update(this.savedPersistToFilePathKey, this.persistToFilePath);
 
         this.updateStatusBar();
     }
@@ -936,13 +938,16 @@ export class Main implements BookmarkDataProvider, BookmarkManager, ActiveGroupP
                     });
             }
 
-            let currentProjectPath = vscode.workspace.workspaceFolders?.map(folder => folder.uri.path)[0] ?? '';
-            let relativeFspath = fsPath.substring(currentProjectPath.length + 1);  
+            let relativeFspath = getRelativePath(fsPath);
 
             if (label !== "") {
                 let characterNumber = textEditor.selection.start.character;
                 let lineText = textEditor.document.lineAt(lineNumber).text.trim();
 
+
+                
+
+                
                 
 
                 let bookmark = new Bookmark(
@@ -1602,7 +1607,8 @@ export class Main implements BookmarkDataProvider, BookmarkManager, ActiveGroupP
 
         let targetStorage: BookmarkDataStorage;
         if (targetType === "file") {
-            targetStorage = new BookmarkStorageInFile(Uri.file(target));
+            let pesistFile = getAbsolutePath(target);
+            targetStorage = new BookmarkStorageInFile(Uri.file(pesistFile));
         } else if (targetType === "workspaceState") {
             targetStorage = new BookmarkStorageInWorkspaceState(this.ctx.workspaceState, target);
         } else {
@@ -1881,6 +1887,13 @@ export class Main implements BookmarkDataProvider, BookmarkManager, ActiveGroupP
             this.defaultShape = defaultDefaultShape;
         }
 
+        if (config.has(this.configKeySaveBookmarksInProject)) {
+            let saveInFile = config.get(this.configKeySaveBookmarksInProject, false);
+            if (saveInFile) {
+                this.persistentStorageType = "file";
+            }
+        }
+
         if (config.has(this.configKeyHomingMarginTop)) {
             try {
                 this.homingMarginTop = (config.get(this.configKeyHomingMarginTop) as number) ?? 0;
@@ -2040,15 +2053,15 @@ export class Main implements BookmarkDataProvider, BookmarkManager, ActiveGroupP
     }
 
     private loadLocalState() {
-        let savedPersistentStorageType = (this.ctx.workspaceState.get(this.savedPersistentStorageTypeKey) as string) ?? "";
-        if (this.persistentStorageTypeOptions.indexOf(savedPersistentStorageType) > -1) {
-            this.persistentStorageType = savedPersistentStorageType;
-        } else {
-            this.persistentStorageType = this.defaultPersistentStorageType;
-        }
+        // let savedPersistentStorageType = (this.ctx.workspaceState.get(this.savedPersistentStorageTypeKey) as string) ?? "";
+        // if (this.persistentStorageTypeOptions.indexOf(savedPersistentStorageType) > -1) {
+        //     this.persistentStorageType = savedPersistentStorageType;
+        // } else {
+        //     this.persistentStorageType = this.defaultPersistentStorageType;
+        // }
 
-        let savedPersistToFilePath = (this.ctx.workspaceState.get(this.savedPersistToFilePathKey) as string) ?? "";
-        this.persistToFilePath = savedPersistToFilePath;
+        // let savedPersistToFilePath = (this.ctx.workspaceState.get(this.savedPersistToFilePathKey) as string) ?? "";
+        // this.persistToFilePath = savedPersistToFilePath;
 
         this.hideInactiveGroups = this.ctx.workspaceState.get(this.savedHideInactiveGroupsKey) ?? false;
 
@@ -2242,8 +2255,7 @@ export class Main implements BookmarkDataProvider, BookmarkManager, ActiveGroupP
     }
 
     public jumpToBookmark(bookmark: Bookmark, preview: boolean = false) {
-        let currentProjectPath = vscode.workspace.workspaceFolders?.map(folder => folder.uri.path)[0] ?? '';
-        let absPath = path.join(currentProjectPath,bookmark.fsPath);
+        let absPath = getAbsolutePath(bookmark.fsPath);
         vscode.window.showTextDocument(vscode.Uri.file(absPath), { preview: preview, preserveFocus: preview }).then(
             textEditor => {
                 try {

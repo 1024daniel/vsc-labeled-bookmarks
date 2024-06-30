@@ -8,6 +8,7 @@ import { BookmarkDataStorage } from "../interface/bookmark_data_storage";
 import { StorageActionResult } from "../storage/storage_action_result";
 import { BookmarkStorageDummy } from "../storage/bookmark_storage_dummy";
 import { BookmarkStorageInFile } from "../storage/bookmark_storage_in_file";
+import { getAbsolutePath } from "./tools/fs";
 
 const resetSubmitter: string = "Reset";
 const testSubmitter: string = "Test Mapping";
@@ -169,8 +170,7 @@ export class ImportPage extends WebViewContent {
                     }
 
                     try {
-                        let currentProjectPath = vscode.workspace.workspaceFolders?.map(folder => folder.uri.path)[0] ?? '';
-                        let absoultfilePath = path.join(currentProjectPath,mappedFile);
+                        let absoultfilePath = getAbsolutePath(mappedFile);
                         let stat = await vscode.workspace.fs.stat(vscode.Uri.file(absoultfilePath));
                         this.fileStats.set(mappedFile, stat);
                     } catch (e) {

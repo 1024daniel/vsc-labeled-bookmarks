@@ -27,8 +27,21 @@ export class BookmarkStorageInFile implements BookmarkDataStorage {
         this.timestamp = 0;
     }
 
+
     public async readStorage() {
-        let fileContents: Uint8Array = await workspace.fs.readFile(this.uri);
+        let fileContents: Uint8Array;
+        // no such file firstly load the project if persistence option is to save in the local file
+        try {
+            fileContents = await workspace.fs.readFile(this.uri);
+        }
+        catch (e) {
+            vscode.window.showWarningMessage("Error reading bookmark unicode marker setting:" + e);
+            this.groups = [];
+            this.bookmarks = [];
+            this.workspaceFolders = [];
+            this.timestamp = 0;
+            return;
+        }
         let json = new TextDecoder("utf-8").decode(fileContents);
         let savedData = JSON.parse(json);
 

@@ -8,6 +8,7 @@ import { BookmarkTreeItem } from './tree_view/bookmark_tree_item';
 let main: Main;
 let treeView: BookmarkTreeView;
 
+// this method is called when vs code is activated
 export function activate(context: ExtensionContext) {
 	treeView = new BookmarkTreeView();
 	main = new Main(context, treeView.refreshCallback.bind(treeView));
@@ -185,6 +186,7 @@ function activatePhase2(context: ExtensionContext): void {
 	treeView.init(main);
 }
 
+// called when vscode exits
 export async function deactivate() {
 	await main.saveBookmarkDataImmediately();
 	main.saveLocalState();

@@ -8,7 +8,7 @@ import { BookmarkDataStorage } from "../interface/bookmark_data_storage";
 import { StorageActionResult } from "../storage/storage_action_result";
 import { BookmarkStorageDummy } from "../storage/bookmark_storage_dummy";
 import { BookmarkStorageInFile } from "../storage/bookmark_storage_in_file";
-import { getAbsolutePath } from "./tools/fs";
+import { getAbsolutePath } from "../tools/fs";
 
 const resetSubmitter: string = "Reset";
 const testSubmitter: string = "Test Mapping";

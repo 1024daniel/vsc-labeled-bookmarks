@@ -404,8 +404,9 @@ export class Main implements BookmarkDataProvider, BookmarkManager, ActiveGroupP
     }
 
     public onEditorDocumentChanged(event: TextDocumentChangeEvent) {
-        let fsPath = event.document.uri.fsPath;
-        let fileBookmarkList = this.getTempDocumentBookmarkList(fsPath);
+        let relativePath =
+        getRelativePath(event.document.uri.fsPath);
+        let fileBookmarkList = this.getTempDocumentBookmarkList(relativePath);
 
         if (fileBookmarkList.length === 0) {
             return;
@@ -505,7 +506,7 @@ export class Main implements BookmarkDataProvider, BookmarkManager, ActiveGroupP
         }
 
         if (bookmarksChanged) {
-            this.tempDocumentDecorations.delete(fsPath);
+            this.tempDocumentDecorations.delete(relativePath);
             this.updateBookmarkTimestamp();
             this.saveBookmarkData();
             this.updateDecorations();
@@ -513,15 +514,15 @@ export class Main implements BookmarkDataProvider, BookmarkManager, ActiveGroupP
         }
     }
 
-    private getTempDocumentBookmarkList(fsPath: string): Array<Bookmark> {
-        let list = this.tempDocumentBookmarks.get(fsPath);
+    private getTempDocumentBookmarkList(realtivePath: string): Array<Bookmark> {
+        let list = this.tempDocumentBookmarks.get(realtivePath);
 
         if (typeof list !== "undefined") {
             return list;
         }
 
-        list = this.bookmarks.filter((bookmark) => { return bookmark.fsPath === fsPath; });
-        this.tempDocumentBookmarks.set(fsPath, list);
+        list = this.bookmarks.filter((bookmark) => { return bookmark.fsPath === realtivePath; });
+        this.tempDocumentBookmarks.set(realtivePath, list);
 
         return list;
     }
@@ -803,13 +804,13 @@ export class Main implements BookmarkDataProvider, BookmarkManager, ActiveGroupP
             return;
         }
 
-        let documentFsPath = textEditor.document.uri.fsPath;
+        let documentRelativeFsPath = getRelativePath(textEditor.document.uri.fsPath);
         for (let selection of textEditor.selections) {
             let lineNumber = selection.start.line;
             let characterNumber = selection.start.character;
             let lineText = textEditor.document.lineAt(lineNumber).text.trim();
             this.toggleBookmark(
-                documentFsPath,
+                documentRelativeFsPath,
                 lineNumber,
                 characterNumber,
                 lineText,
@@ -822,13 +823,13 @@ export class Main implements BookmarkDataProvider, BookmarkManager, ActiveGroupP
     }
 
     private toggleBookmark(
-        fsPath: string,
+        relativeFsPath: string,
         lineNumber: number,
         characterNumber: number,
         lineText: string,
         group: Group
     ) {
-        let existingBookmark = this.getTempDocumentBookmarkList(fsPath)
+        let existingBookmark = this.getTempDocumentBookmarkList(relativeFsPath)
             .find((bookmark) => { return bookmark.lineNumber === lineNumber && bookmark.group === group; });
 
         if (typeof existingBookmark !== "undefined") {
@@ -838,7 +839,7 @@ export class Main implements BookmarkDataProvider, BookmarkManager, ActiveGroupP
             return;
         }
 
-        let bookmark = new Bookmark(fsPath,
+        let bookmark = new Bookmark(relativeFsPath,
             lineNumber,
             characterNumber,
             undefined,
@@ -849,8 +850,8 @@ export class Main implements BookmarkDataProvider, BookmarkManager, ActiveGroupP
         this.bookmarks.push(bookmark);
         this.bookmarks.sort(Bookmark.sortByLocation);
 
-        this.tempDocumentBookmarks.delete(fsPath);
-        this.tempDocumentDecorations.delete(fsPath);
+        this.tempDocumentBookmarks.delete(relativeFsPath);
+        this.tempDocumentDecorations.delete(relativeFsPath);
         this.tempGroupBookmarks.delete(group);
 
         this.updateBookmarkTimestamp();
@@ -862,10 +863,10 @@ export class Main implements BookmarkDataProvider, BookmarkManager, ActiveGroupP
             return;
         }
 
-        let fsPath = textEditor.document.uri.fsPath;
+        let relativeFspath = getRelativePath(textEditor.document.uri.fsPath);
         let lineNumber = textEditor.selection.start.line;
 
-        let existingBookmark = this.getTempDocumentBookmarkList(fsPath)
+        let existingBookmark = this.getTempDocumentBookmarkList(relativeFspath)
             .find((bookmark) => { return bookmark.lineNumber === lineNumber && bookmark.group === this.activeGroup; });
 
         if (typeof existingBookmark !== "undefined") {
@@ -938,17 +939,10 @@ export class Main implements BookmarkDataProvider, BookmarkManager, ActiveGroupP
                     });
             }
 
-            let relativeFspath = getRelativePath(fsPath);
 
             if (label !== "") {
                 let characterNumber = textEditor.selection.start.character;
                 let lineText = textEditor.document.lineAt(lineNumber).text.trim();
-
-
-                
-
-                
-                
 
                 let bookmark = new Bookmark(
                     relativeFspath,
@@ -1088,7 +1082,7 @@ export class Main implements BookmarkDataProvider, BookmarkManager, ActiveGroupP
     }
 
     public actionExpandSelectionToNextBookmark(editor: TextEditor) {
-        let bookmarks = this.getTempDocumentBookmarkList(editor.document.uri.fsPath);
+        let bookmarks = this.getTempDocumentBookmarkList(getRelativePath(editor.document.uri.fsPath));
         if (typeof bookmarks === "undefined") {
             return;
         }
@@ -1136,7 +1130,7 @@ export class Main implements BookmarkDataProvider, BookmarkManager, ActiveGroupP
     }
 
     public actionExpandSelectionToPreviousBookmark(editor: TextEditor) {
-        let bookmarks = this.getTempDocumentBookmarkList(editor.document.uri.fsPath);
+        let bookmarks = this.getTempDocumentBookmarkList(getRelativePath(editor.document.uri.fsPath));
         if (typeof bookmarks === "undefined") {
             return;
         }
@@ -1572,7 +1566,7 @@ export class Main implements BookmarkDataProvider, BookmarkManager, ActiveGroupP
             }
         });
     }
-
+    
     public actionshowStorageActionPanel() {
         this.webview.reveal();
     }
@@ -1782,7 +1776,7 @@ export class Main implements BookmarkDataProvider, BookmarkManager, ActiveGroupP
             });
 
             this.persistentStorage.setGroups(currentGroups);
-            this.persistentStorage.setBookmarks(targetStorage.getBookmarks());
+            this.persistentStorage.setBookmarks([...this.persistentStorage.getBookmarks(), ...targetStorage.getBookmarks()]);
             this.saveBookmarkData();
 
             this.purgeAllDecorations();
@@ -2310,7 +2304,7 @@ export class Main implements BookmarkDataProvider, BookmarkManager, ActiveGroupP
             return null;
         }
 
-        let fsPath = textEditor.document.uri.fsPath;
+        let relativeFsPath = getRelativePath(textEditor.document.uri.fsPath);
         let lineNumber = textEditor.selection.start.line;
 
         let nearestBeforeLine = -1;
@@ -2318,7 +2312,7 @@ export class Main implements BookmarkDataProvider, BookmarkManager, ActiveGroupP
         let nearestAfterline = Number.MAX_SAFE_INTEGER;
         let nearestAfter: Bookmark | null = null;
 
-        this.getTempDocumentBookmarkList(fsPath)
+        this.getTempDocumentBookmarkList(relativeFsPath)
             .filter(g => (group === null || g.group === group))
             .forEach(bookmark => {
                 if (bookmark.lineNumber > nearestBeforeLine && bookmark.lineNumber <= lineNumber) {

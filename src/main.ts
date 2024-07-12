@@ -385,10 +385,8 @@ export class Main implements BookmarkDataProvider, BookmarkManager, ActiveGroupP
             return;
         }
 
-        let fsPath = textEditor.document.uri.fsPath;    // absolute path
-        let currentProjectPath = vscode.workspace.workspaceFolders?.map(folder => folder.uri.path)[0] ?? '';
-        fsPath = fsPath.substring(currentProjectPath.length + 1);
-        let editorDecorations = this.getTempDocumentDecorationsList(fsPath);
+        let relativeFsPath = getRelativePath(textEditor.document.uri.fsPath);
+        let editorDecorations = this.getTempDocumentDecorationsList(relativeFsPath);
 
         for (let [removedDecoration, b] of this.removedDecorations) {
             if (editorDecorations.has(removedDecoration)) {
@@ -405,7 +403,7 @@ export class Main implements BookmarkDataProvider, BookmarkManager, ActiveGroupP
 
     public onEditorDocumentChanged(event: TextDocumentChangeEvent) {
         let relativePath =
-        getRelativePath(event.document.uri.fsPath);
+            getRelativePath(event.document.uri.fsPath);
         let fileBookmarkList = this.getTempDocumentBookmarkList(relativePath);
 
         if (fileBookmarkList.length === 0) {

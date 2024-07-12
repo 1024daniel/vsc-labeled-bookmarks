@@ -153,10 +153,8 @@ export class ImportPage extends WebViewContent {
                 incomingFiles.sort();
 
                 for (let fileName of incomingFiles) {
-                    fileName = fileName.replace(/\\/g, "/");
-
+                    fileName = fileName.replace(/\\/g, "/");                    
                     this.fileMapping.set(fileName, fileName);
-
                     this.folderMapping.forEach((mappedFolder, incomingFolder) => {
                         if (fileName.startsWith(incomingFolder)) {
                             this.fileMapping.set(fileName, mappedFolder + fileName.substring(incomingFolder.length));

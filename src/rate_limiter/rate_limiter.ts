@@ -17,7 +17,9 @@ export class RateLimiter {
         this.repeatTimeout = null;
     }
 
+    // many events trigger the fire function
     public fire(repeated: boolean = false) {
+        // pendingCallCounts records the count to execute the function
         if (!repeated) {
             this.pendingCallCount++;
         }
@@ -35,20 +37,25 @@ export class RateLimiter {
             this.isInitialDelayOver = true;
         }
 
+        // make sure the lattern calls are from timer: repeatTimeout is null maker the timer execute time
         if (this.repeatTimeout !== null) {
             return;
         }
 
+        // an execution account for all the pending calls
         this.pendingCallCount = 0;
         this.limitedFunc();
 
         this.repeatTimeout = setTimeout(
             () => {
+                // an execution account for all the pending calls, so cancel all the timer
                 this.repeatTimeout = null;
+                // after exeute the limited function and repeatInterval time may be because the context switch when others trigger new fires
                 if (this.pendingCallCount === 0) {
                     this.reset();
                     return;
                 }
+                // if other trigger new fires, catch the cpu time to response to the pending calls
                 this.fire(true);
             },
             this.repeatInterval

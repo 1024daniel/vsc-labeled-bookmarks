@@ -128,7 +128,9 @@ export class BookmarkStorageInFile implements BookmarkDataStorage {
             "workspaceFolders": this.workspaceFolders,
         },null,'\t');
 
-        let bytes = Uint8Array.from(json.split("").map(c => { return c.charCodeAt(0); }));
+        // let bytes = Uint8Array.from(json.split("").map(c => { return c.charCodeAt(0); }));
+        let encoder = new TextEncoder(); // 默认 UTF-8
+        let bytes = encoder.encode(json); // 正确编码为 Uint8Array
         await workspace.fs.writeFile(this.uri, bytes);
     }
 }

@@ -32,10 +32,10 @@ export class Group {
     ) {
         this.decorationFactory = decorationFactory;
         this.name = name;
-        this.color = this.decorationFactory.normalizeColorFormat(color);
+        this.color = this.decorationFactory.normalizeColorFormatV2(color);
         this.shape = shape;
         this.iconText = iconText;
-        this.inactiveColor = this.color.substring(0, 6) + Group.inactiveTransparency;
+        this.inactiveColor = this.color.replace(/rgba\((\d+), (\d+), (\d+), [0-9\.]+\)/, `rgba($1, $2, $3, ${Group.inactiveTransparency})`);
         this.isActive = false;
         this.isVisible = false;
         this.isInitialized = false;
@@ -135,7 +135,7 @@ export class Group {
         this.removeDecorations();
 
         this.shape = shape;
-        this.iconText = iconText;
+        this.iconText = iconText.normalize();
 
         this.initDecorations();
     }
@@ -147,8 +147,8 @@ export class Group {
 
         this.removeDecorations();
 
-        this.color = this.decorationFactory.normalizeColorFormat(color);
-        this.inactiveColor = this.color.substring(0, 6) + Group.inactiveTransparency;
+        this.color = this.decorationFactory.normalizeColorFormatV2(color);
+        this.inactiveColor = this.color.replace(/rgba\((\d+), (\d+), (\d+), [0-9\.]+\)/, `rgba($1, $2, $3, ${Group.inactiveTransparency})`);
 
         this.initDecorations();
     }

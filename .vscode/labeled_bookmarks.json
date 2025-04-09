@@ -1,0 +1,500 @@
+{
+	"dataFormatVersion": 1,
+	"timestamp": 1744187526664,
+	"groups": [
+		{
+			"name": "debug",
+			"color": "rgba(221, 221, 0, 1.00)",
+			"shape": "unicode",
+			"iconText": "🐞"
+		},
+		{
+			"name": "decoration",
+			"color": "rgba(221, 221, 0, 1.00)",
+			"shape": "plus",
+			"iconText": "\\u0018\\u000F"
+		},
+		{
+			"name": "main",
+			"color": "rgba(0, 221, 221, 1.00)",
+			"shape": "pin",
+			"iconText": ">�"
+		},
+		{
+			"name": "saving",
+			"color": "rgba(0, 221, 0, 1.00)",
+			"shape": "unicode",
+			"iconText": "S"
+		},
+		{
+			"name": "setting",
+			"color": "rgba(0, 221, 221, 1.00)",
+			"shape": "ring",
+			"iconText": ">�"
+		}
+	],
+	"bookmarks": [
+		{
+			"fsPath": "package.json",
+			"lineNumber": 474,
+			"characterNumber": 14,
+			"label": "configuration definitions",
+			"lineText": "],",
+			"isLineNumberChanged": false,
+			"groupName": "setting"
+		},
+		{
+			"fsPath": "package.json",
+			"lineNumber": 770,
+			"characterNumber": 42,
+			"label": "configurations for decorations",
+			"lineText": "\"labeledBookmarks.defaultShape\": {",
+			"isLineNumberChanged": false,
+			"groupName": "decoration"
+		},
+		{
+			"fsPath": "package.json",
+			"lineNumber": 863,
+			"characterNumber": 38,
+			"label": "tree view configuration",
+			"lineText": "\"labeled-bookmarks-tree-view\": [",
+			"isLineNumberChanged": false,
+			"groupName": "decoration"
+		},
+		{
+			"fsPath": "resources/webview.js",
+			"lineNumber": 6,
+			"characterNumber": 45,
+			"label": "receive extension message and uodate webview elements",
+			"lineText": "window.addEventListener('message', event => {",
+			"isLineNumberChanged": false,
+			"groupName": "main"
+		},
+		{
+			"fsPath": "resources/webview.js",
+			"lineNumber": 45,
+			"characterNumber": 72,
+			"label": "select file handler, pass messages from webview to extension",
+			"lineText": "document.querySelectorAll(\".file-selector\").forEach(function (element) {",
+			"isLineNumberChanged": false,
+			"groupName": "main"
+		},
+		{
+			"fsPath": "src/decoration_factory.ts",
+			"lineNumber": 441,
+			"characterNumber": 128,
+			"label": "create svg decoration",
+			"lineText": "async create(shape: string, color: string, iconText: string, lineLabel?: string): Promise<[TextEditorDecorationType, Uri]> {",
+			"isLineNumberChanged": false,
+			"groupName": "main"
+		},
+		{
+			"fsPath": "src/decoration_factory.ts",
+			"lineNumber": 441,
+			"characterNumber": 128,
+			"label": "generate new decoration svg for group",
+			"lineText": "async create(shape: string, color: string, iconText: string, lineLabel?: string): Promise<[TextEditorDecorationType, Uri]> {",
+			"isLineNumberChanged": false,
+			"groupName": "decoration"
+		},
+		{
+			"fsPath": "src/decoration_factory.ts",
+			"lineNumber": 461,
+			"characterNumber": 35,
+			"label": "render icon in gutter",
+			"lineText": "gutterIconPath: svgUri,",
+			"isLineNumberChanged": false,
+			"groupName": "decoration"
+		},
+		{
+			"fsPath": "src/decoration_factory.ts",
+			"lineNumber": 472,
+			"characterNumber": 47,
+			"label": "line end label options for bookmark",
+			"lineText": "if (typeof lineLabel !== \"undefined\") {",
+			"isLineNumberChanged": false,
+			"groupName": "decoration"
+		},
+		{
+			"fsPath": "src/decoration_factory.ts",
+			"lineNumber": 493,
+			"characterNumber": 85,
+			"label": "render svg decoration in editor",
+			"lineText": "let result = vscode.window.createTextEditorDecorationType(decorationOptions);",
+			"isLineNumberChanged": false,
+			"groupName": "main"
+		},
+		{
+			"fsPath": "src/extension.ts",
+			"lineNumber": 11,
+			"characterNumber": 53,
+			"label": "vscode active entry",
+			"lineText": "export function activate(context: ExtensionContext) {",
+			"isLineNumberChanged": false,
+			"groupName": "main"
+		},
+		{
+			"fsPath": "src/extension.ts",
+			"lineNumber": 191,
+			"characterNumber": 23,
+			"label": "sync bookmarks before vscode exits",
+			"lineText": "main.saveLocalState();",
+			"isLineNumberChanged": false,
+			"groupName": "main"
+		},
+		{
+			"fsPath": "src/group.ts",
+			"lineNumber": 129,
+			"characterNumber": 65,
+			"label": "change group decoration",
+			"lineText": "public setShapeAndIconText(shape: string, iconText: string) {",
+			"isLineNumberChanged": false,
+			"groupName": "decoration"
+		},
+		{
+			"fsPath": "src/group.ts",
+			"lineNumber": 142,
+			"characterNumber": 36,
+			"label": "set group color",
+			"lineText": "public setColor(color: string) {",
+			"isLineNumberChanged": false,
+			"groupName": "decoration"
+		},
+		{
+			"fsPath": "src/main.ts",
+			"lineNumber": 72,
+			"characterNumber": 18,
+			"label": "storage action options",
+			"lineText": "}> = new Map([",
+			"isLineNumberChanged": false,
+			"groupName": "main"
+		},
+		{
+			"fsPath": "src/main.ts",
+			"lineNumber": 285,
+			"characterNumber": 31,
+			"label": "save bookmarks",
+			"lineText": "this.updateStatusBar();",
+			"isLineNumberChanged": false,
+			"groupName": "main"
+		},
+		{
+			"fsPath": "src/main.ts",
+			"lineNumber": 319,
+			"characterNumber": 0,
+			"label": "switch group decoration",
+			"lineText": "",
+			"isLineNumberChanged": false,
+			"groupName": "decoration"
+		},
+		{
+			"fsPath": "src/main.ts",
+			"lineNumber": 382,
+			"characterNumber": 9,
+			"label": "update decorations",
+			"lineText": "}",
+			"isLineNumberChanged": false,
+			"groupName": "main"
+		},
+		{
+			"fsPath": "src/main.ts",
+			"lineNumber": 401,
+			"characterNumber": 9,
+			"label": "render bookmark in editor",
+			"lineText": "}",
+			"isLineNumberChanged": false,
+			"groupName": "decoration"
+		},
+		{
+			"fsPath": "src/main.ts",
+			"lineNumber": 403,
+			"characterNumber": 5,
+			"label": "handle document change",
+			"lineText": "let relativeFsPath = getRelativePath(textEditor.document.uri.fsPath);",
+			"isLineNumberChanged": false,
+			"groupName": "main"
+		},
+		{
+			"fsPath": "src/main.ts",
+			"lineNumber": 406,
+			"characterNumber": 68,
+			"label": "update bookmark range when editing",
+			"lineText": "for (let [removedDecoration, b] of this.removedDecorations) {",
+			"isLineNumberChanged": false,
+			"groupName": "saving"
+		},
+		{
+			"fsPath": "src/main.ts",
+			"lineNumber": 406,
+			"characterNumber": 68,
+			"label": "update bookmark decoration range when editing",
+			"lineText": "for (let [removedDecoration, b] of this.removedDecorations) {",
+			"isLineNumberChanged": false,
+			"groupName": "decoration"
+		},
+		{
+			"fsPath": "src/main.ts",
+			"lineNumber": 513,
+			"characterNumber": 74,
+			"label": "get bookmarks in a file",
+			"lineText": "if (bookmark.lineNumber >= oldFirstLine && bookmark.lineNumber <= newLastLine) {",
+			"isLineNumberChanged": false,
+			"groupName": "main"
+		},
+		{
+			"fsPath": "src/main.ts",
+			"lineNumber": 826,
+			"characterNumber": 27,
+			"label": "toggle bookmark",
+			"lineText": "let lineText = textEditor.document.lineAt(lineNumber).text.trim();",
+			"isLineNumberChanged": false,
+			"groupName": "main"
+		},
+		{
+			"fsPath": "src/main.ts",
+			"lineNumber": 957,
+			"characterNumber": 0,
+			"label": "add new book decoration",
+			"lineText": "",
+			"isLineNumberChanged": false,
+			"groupName": "decoration"
+		},
+		{
+			"fsPath": "src/main.ts",
+			"lineNumber": 960,
+			"characterNumber": 62,
+			"label": "delete cached bookmarks belongs to a file for add new bookmarks",
+			"lineText": "let lineText = textEditor.document.lineAt(lineNumber).text.trim();",
+			"isLineNumberChanged": false,
+			"groupName": "main"
+		},
+		{
+			"fsPath": "src/main.ts",
+			"lineNumber": 1261,
+			"characterNumber": 38,
+			"label": "action to set group icon",
+			"lineText": "textEditor.selection = currentSelection;",
+			"isLineNumberChanged": false,
+			"groupName": "decoration"
+		},
+		{
+			"fsPath": "src/main.ts",
+			"lineNumber": 1580,
+			"characterNumber": 38,
+			"label": "all bookmark store action",
+			"lineText": "if (typeof selected !== \"undefined\") {",
+			"isLineNumberChanged": false,
+			"groupName": "main"
+		},
+		{
+			"fsPath": "src/main.ts",
+			"lineNumber": 1653,
+			"characterNumber": 25,
+			"label": "convert bookmark abs path to relative path",
+			"lineText": "//     };",
+			"isLineNumberChanged": false,
+			"groupName": "main"
+		},
+		{
+			"fsPath": "src/main.ts",
+			"lineNumber": 1707,
+			"characterNumber": 52,
+			"label": "import only selected group bookmarks",
+			"lineText": "originalStorage.setWorkspaceFolders([]);",
+			"isLineNumberChanged": false,
+			"groupName": "main"
+		},
+		{
+			"fsPath": "src/main.ts",
+			"lineNumber": 1749,
+			"characterNumber": 67,
+			"label": "merge new bookmarks from file",
+			"lineText": "let currentGroups = this.persistentStorage.getGroups();",
+			"isLineNumberChanged": false,
+			"groupName": "main"
+		},
+		{
+			"fsPath": "src/main.ts",
+			"lineNumber": 1822,
+			"characterNumber": 13,
+			"label": "get all colors options from configuration",
+			"lineText": "}",
+			"isLineNumberChanged": false,
+			"groupName": "decoration"
+		},
+		{
+			"fsPath": "src/main.ts",
+			"lineNumber": 1839,
+			"characterNumber": 53,
+			"label": "read default shape",
+			"lineText": "if (config.has(this.configKeyDefaultShape)) {",
+			"isLineNumberChanged": false,
+			"groupName": "setting"
+		},
+		{
+			"fsPath": "src/main.ts",
+			"lineNumber": 1999,
+			"characterNumber": 31,
+			"label": "update status bar below vscode",
+			"lineText": "private updateStatusBar() {",
+			"isLineNumberChanged": false,
+			"groupName": "decoration"
+		},
+		{
+			"fsPath": "src/main.ts",
+			"lineNumber": 2029,
+			"characterNumber": 32,
+			"label": "load bookmarks in side bar",
+			"lineText": "private loadBookmarkData() {",
+			"isLineNumberChanged": false,
+			"groupName": "main"
+		},
+		{
+			"fsPath": "src/main.ts",
+			"lineNumber": 2080,
+			"characterNumber": 57,
+			"label": "add new bookmarks function",
+			"lineText": "private addNewDecoratedBookmark(bookmark: Bookmark) {",
+			"isLineNumberChanged": false,
+			"groupName": "main"
+		},
+		{
+			"fsPath": "src/main.ts",
+			"lineNumber": 2085,
+			"characterNumber": 68,
+			"label": "active group",
+			"lineText": "private activateGroup(name: string, saveState: boolean = true) {",
+			"isLineNumberChanged": false,
+			"groupName": "decoration"
+		},
+		{
+			"fsPath": "src/main.ts",
+			"lineNumber": 2211,
+			"characterNumber": 73,
+			"label": "jumper to specific bookmark",
+			"lineText": "public jumpToBookmark(bookmark: Bookmark, preview: boolean = false) {",
+			"isLineNumberChanged": false,
+			"groupName": "main"
+		},
+		{
+			"fsPath": "src/main.ts",
+			"lineNumber": 2313,
+			"characterNumber": 37,
+			"label": "set save bookmark interval",
+			"lineText": "private setStorageRateLimiter() {",
+			"isLineNumberChanged": false,
+			"groupName": "main"
+		},
+		{
+			"fsPath": "src/main.ts",
+			"lineNumber": 2321,
+			"characterNumber": 37,
+			"label": "regularly saving",
+			"lineText": "private setStorageRateLimiter() {",
+			"isLineNumberChanged": false,
+			"groupName": "saving"
+		},
+		{
+			"fsPath": "src/main.ts",
+			"lineNumber": 2325,
+			"characterNumber": 47,
+			"label": "get file:// path scheme uri",
+			"lineText": "private getRealPath(path: string): string {",
+			"isLineNumberChanged": false,
+			"groupName": "main"
+		},
+		{
+			"fsPath": "src/main.ts",
+			"lineNumber": 2330,
+			"characterNumber": 56,
+			"label": "rate function fire save bookmarks functions",
+			"lineText": "this.saveBookmarkDataImmediately.bind(this),",
+			"isLineNumberChanged": false,
+			"groupName": "main"
+		},
+		{
+			"fsPath": "src/storage/bookmark_storage_in_file.ts",
+			"lineNumber": 29,
+			"characterNumber": 32,
+			"label": "parse bookmarks from json file",
+			"lineText": "public async readStorage() {",
+			"isLineNumberChanged": false,
+			"groupName": "main"
+		},
+		{
+			"fsPath": "src/storage/bookmark_storage_in_file.ts",
+			"lineNumber": 108,
+			"characterNumber": 43,
+			"label": "persist bookmarks to file",
+			"lineText": "public async persist(): Promise<void> {",
+			"isLineNumberChanged": false,
+			"groupName": "main"
+		},
+		{
+			"fsPath": "src/storage/bookmark_storage_in_file.ts",
+			"lineNumber": 121,
+			"characterNumber": 43,
+			"label": "persist bookmark to json file",
+			"lineText": "public async persist(): Promise<void> {",
+			"isLineNumberChanged": false,
+			"groupName": "saving"
+		},
+		{
+			"fsPath": "src/tree_view/bookmark_tree_view.ts",
+			"lineNumber": 25,
+			"characterNumber": 35,
+			"label": "create treeview in sidebar and set refresh ratelimiter",
+			"lineText": "public async init(main: Main) {",
+			"isLineNumberChanged": false,
+			"groupName": "main"
+		},
+		{
+			"fsPath": "src/webview/bookmark_webview.ts",
+			"lineNumber": 253,
+			"characterNumber": 35,
+			"label": "select file from pop up diaglog",
+			"lineText": "if (value === \"read\") {",
+			"isLineNumberChanged": false,
+			"groupName": "main"
+		},
+		{
+			"fsPath": "src/webview/bookmark_webview.ts",
+			"lineNumber": 263,
+			"characterNumber": 68,
+			"label": "update webview element to selected file path name",
+			"lineText": "this.setFormElement(name, result[0].fsPath);",
+			"isLineNumberChanged": false,
+			"groupName": "main"
+		},
+		{
+			"fsPath": "src/webview/import_page.ts",
+			"lineNumber": 158,
+			"characterNumber": 66,
+			"label": "foldermapping",
+			"lineText": "if (fileName.startsWith(incomingFolder)) {",
+			"isLineNumberChanged": false,
+			"groupName": "debug"
+		},
+		{
+			"fsPath": "src/webview/import_page.ts",
+			"lineNumber": 168,
+			"characterNumber": 25,
+			"label": "check if import bookmark file is existed",
+			"lineText": "try {",
+			"isLineNumberChanged": false,
+			"groupName": "main"
+		},
+		{
+			"fsPath": "src/webview/import_page.ts",
+			"lineNumber": 236,
+			"characterNumber": 89,
+			"label": "get map folder htmls",
+			"lineText": "let folderMappingControls = this.webviewContentHelper.getMappingFormControls(",
+			"isLineNumberChanged": false,
+			"groupName": "main"
+		}
+	],
+	"workspaceFolders": [
+		"/Users/daniel/code/vsc-labeled-bookmarks"
+	]
+}

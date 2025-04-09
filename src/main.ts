@@ -203,7 +203,23 @@ export class Main implements BookmarkDataProvider, BookmarkManager, ActiveGroupP
             ["circle", "circle"],
             ["heart", "heart"],
             ["label", "label"],
-            ["star", "star"]
+            ["star", "star"],
+            ["triangle", "triangle"],
+            ["diamond", "diamond"],
+            ["hexagon", "hexagon"],
+            ["flag", "flag"],
+            ["arrow", "arrow"],
+            ["pentagon", "pentagon"],
+            ["octagon", "octagon"], // octagon is a valid shape in the decoration
+            ["plus", "plus"],
+            ["checkmark","checkmark"],
+            ["ring", "ring"],
+            ["lightning", "lightning"], // lightning is a valid shape in the
+            ["cloud", "cloud"], // cloud is a valid shape in the decoration
+            ["light", "light"],
+            ["pin", "pin"],
+            ["zoom", "zoom"],
+            ["share", "share"]
         ]);
 
         this.removedDecorations = new Map<TextEditorDecorationType, boolean>();
@@ -218,7 +234,7 @@ export class Main implements BookmarkDataProvider, BookmarkManager, ActiveGroupP
         this.readSettings();
 
         if (this.colors.size < 1) {
-            this.colors.set(this.fallbackColorName, this.decorationFactory.normalizeColorFormat(this.fallbackColor));
+            this.colors.set(this.fallbackColorName, this.decorationFactory.normalizeColorFormatV2(this.fallbackColor));
         }
 
         this.hideInactiveGroups = false;
@@ -401,6 +417,7 @@ export class Main implements BookmarkDataProvider, BookmarkManager, ActiveGroupP
         }
     }
 
+    // insertions, deletions, or replacements
     public onEditorDocumentChanged(event: TextDocumentChangeEvent) {
         let relativePath =
             getRelativePath(event.document.uri.fsPath);
@@ -571,6 +588,7 @@ export class Main implements BookmarkDataProvider, BookmarkManager, ActiveGroupP
                 }
             });
 
+        // pair the decoration with ranges
         editorDecorations = new Map<TextEditorDecorationType, Range[]>();
         for (let [lineNumber, decoration] of lineDecorations) {
             let ranges = editorDecorations.get(decoration);
@@ -1314,6 +1332,7 @@ export class Main implements BookmarkDataProvider, BookmarkManager, ActiveGroupP
     public actionSetGroupIconColor() {
         let colorPickItems = new Array<ColorPickItem>();
         for (let [name, color] of this.colors) {
+            // use filled circle to mark chosen color name
             let label = (this.activeGroup.color === color ? "● " : "◌ ") + name;
 
             colorPickItems.push(new ColorPickItem(color, label, "", ""));
@@ -1707,36 +1726,6 @@ export class Main implements BookmarkDataProvider, BookmarkManager, ActiveGroupP
                     bookmarkedFiles.set(normalizedPath, normalizedPath);
                 });
 
-                // bookmarkedFiles.forEach((_filePathValue, filePathKey) => {
-                //     // for (let [mappingKey, mappingValue] of pathMapping) {
-                //     //     if (filePathKey.startsWith(mappingKey)) {
-                //     //         bookmarkedFiles.set(filePathKey, mappingValue + filePathKey.substring(mappingKey.length));
-                //     //         return;
-                //     //     }
-                //     // }
-                //     let currentProjectPath = vscode.workspace.workspaceFolders?.map(folder => folder.uri.path)[0] ?? ''                    
-                //     let absoultfilePath = path.join(currentProjectPath,_filePathValue)
-                //     bookmarkedFiles.delete(filePathKey);
-                //     bookmarkedFiles.set(absoultfilePath, absoultfilePath);
-                //     //successResult.warnings.push("file outside listed folders was skipped: " + filePathKey);
-                //     //bookmarkedFiles.delete(filePathKey);
-                // });
-
-                // transfor from relative path to absolute path
-                // let currentProjectPath = vscode.workspace.workspaceFolders?.map(folder => folder.uri.path)[0] ?? '';                 
-                // let bmRelativePaths = Array.from(bookmarkedFiles.keys());
-                // let bmAbsolutePaths:string[] = [];
-                // bmRelativePaths.forEach((v)=>{
-                //     bookmarkedFiles.delete(v);
-                //     let absoultfilePath = path.join(currentProjectPath,v);
-                //     bmAbsolutePaths.push(absoultfilePath);
-                // });
-                // bmAbsolutePaths.forEach((v)=>{
-                //     bookmarkedFiles.set(v,v);
-                // });
-                
-
-
                 try {
                     filteredBookmarks.forEach(bm => {
                         let bookmarkLabel = bm.label ? `"${bm.label}"` : "without label";
@@ -1765,18 +1754,15 @@ export class Main implements BookmarkDataProvider, BookmarkManager, ActiveGroupP
                 if (currentGroups.find(g => g.name === bm.groupName)) {
                     return;
                 }
-
                 let missingGroup = incomingGroups.find(g => g.name === bm.groupName);
                 if (typeof missingGroup === "undefined") {
                     return StorageActionResult.simpleError('Failed to copy group info: ' + bm.groupName);
                 }
                 currentGroups.push(missingGroup);
             });
-
             this.persistentStorage.setGroups(currentGroups);
             this.persistentStorage.setBookmarks([...this.persistentStorage.getBookmarks(), ...targetStorage.getBookmarks()]);
             this.saveBookmarkData();
-
             this.purgeAllDecorations();
         }
 
@@ -1848,7 +1834,7 @@ export class Main implements BookmarkDataProvider, BookmarkManager, ActiveGroupP
                 let configColors = (config.get(this.configKeyColors) as Array<Array<string>>);
                 this.colors = new Map<string, string>();
                 for (let [index, value] of configColors) {
-                    this.colors.set(index, this.decorationFactory.normalizeColorFormat(value));
+                    this.colors.set(index, this.decorationFactory.normalizeColorFormatV2(value));
                 }
             } catch (e) {
                 vscode.window.showWarningMessage("Error reading bookmark color setting");
